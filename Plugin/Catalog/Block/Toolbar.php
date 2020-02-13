@@ -1,5 +1,6 @@
 <?php
 namespace Hapex\CustomSortOrder\Plugin\Catalog\Block;
+
 use Hapex\CustomSortOrder\Helper\Data as DataHelper;
 
 class Toolbar
@@ -8,38 +9,37 @@ class Toolbar
     {
         $this->helperData = $helperData;
     }
-    
+
     /**
     * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $subject
     * @param \Closure $proceed
     * @param \Magento\Framework\Data\Collection $collection
     * @return \Magento\Catalog\Block\Product\ProductList\Toolbar
     */
-    public function aroundSetCollection(\Magento\Catalog\Block\Product\ProductList\Toolbar $toolbar, \Closure $proceed, $collection) 
+    public function aroundSetCollection(\Magento\Catalog\Block\Product\ProductList\Toolbar $toolbar, \Closure $proceed, $collection)
     {
         $this->_collection = $collection;
         $result = $proceed($collection);
-        switch($this->helperData->isEnabled())
-        {
+        switch ($this->helperData->isEnabled()) {
             case true:
                 $currentOrder = $toolbar->getCurrentOrder();
                 $currentDirection = $toolbar->getCurrentDirection();
-        
+
                 if ($currentOrder) {
                     switch ($currentOrder) {
-                    
+
                     case 'qty_asc':
                         $this->_collection->setOrder('quantity_and_stock_status', "asc");
                         break;
-                        
+
                     case 'qty_desc':
                         $this->_collection->setOrder('quantity_and_stock_status', "desc");
                         break;
-        
-                    default:        
+
+                    default:
                         $this->_collection->setOrder($currentOrder, $currentDirection);
                     break;
-        
+
                     }
                 }
                 break;
