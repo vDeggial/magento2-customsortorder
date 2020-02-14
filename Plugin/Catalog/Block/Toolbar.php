@@ -11,11 +11,11 @@ class Toolbar
     }
 
     /**
-    * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $subject
-    * @param \Closure $proceed
-    * @param \Magento\Framework\Data\Collection $collection
-    * @return \Magento\Catalog\Block\Product\ProductList\Toolbar
-    */
+     * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $subject
+     * @param \Closure $proceed
+     * @param \Magento\Framework\Data\Collection $collection
+     * @return \Magento\Catalog\Block\Product\ProductList\Toolbar
+     */
     public function aroundSetCollection(\Magento\Catalog\Block\Product\ProductList\Toolbar $toolbar, \Closure $proceed, $collection)
     {
         $this->_collection = $collection;
@@ -28,17 +28,31 @@ class Toolbar
                 if ($currentOrder) {
                     switch ($currentOrder) {
 
-                    case 'qty_asc':
-                        $this->_collection->setOrder('quantity_and_stock_status', "asc");
+                        case 'qty_asc':
+                            $this->_collection->setOrder('quantity_and_stock_status', "asc");
                         break;
 
-                    case 'qty_desc':
-                        $this->_collection->setOrder('quantity_and_stock_status', "desc");
+                        case 'qty_desc':
+                            $this->_collection->setOrder('quantity_and_stock_status', "desc");
                         break;
 
-                    default:
-                        $this->_collection->setOrder($currentOrder, $currentDirection);
-                    break;
+                        case 'price_asc':
+                            $this->_collection->setOrder('price', "asc");
+                        break;
+                        case 'price_desc':
+                            $this->_collection->setOrder('price', "desc");
+                        break;
+
+                        case 'name_asc':
+                            $this->_collection->setOrder('name', "asc");
+                        break;
+                        case 'name_desc':
+                            $this->_collection->setOrder('name', "desc");
+                        break;
+
+                        default:
+                            $this->_collection->setOrder($currentOrder, $currentDirection);
+                        break;
 
                     }
                 }
