@@ -11,7 +11,7 @@ class Toolbar
     }
 
     /**
-     * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $subject
+     * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $toolbar
      * @param \Closure $proceed
      * @param \Magento\Framework\Data\Collection $collection
      * @return \Magento\Catalog\Block\Product\ProductList\Toolbar
@@ -22,41 +22,46 @@ class Toolbar
         $result = $proceed($collection);
         switch ($this->helperData->isEnabled()) {
             case true:
-                $currentOrder = $toolbar->getCurrentOrder();
-                $currentDirection = $toolbar->getCurrentDirection();
+                try {
+                    $currentOrder = $toolbar->getCurrentOrder();
+                    $currentDirection = $toolbar->getCurrentDirection();
 
-                if ($currentOrder) {
-                    switch ($currentOrder) {
+                    if ($currentOrder) {
+                        switch ($currentOrder) {
 
-                        case 'qty_asc':
-                            $this->_collection->setOrder('quantity_and_stock_status', "asc");
-                        break;
+                            case 'qty_asc':
+                                $this->_collection->setOrder('quantity_and_stock_status', "asc");
+                            break;
 
-                        case 'qty_desc':
-                            $this->_collection->setOrder('quantity_and_stock_status', "desc");
-                        break;
+                            case 'qty_desc':
+                                $this->_collection->setOrder('quantity_and_stock_status', "desc");
+                            break;
 
-                        case 'price_asc':
-                            $this->_collection->setOrder('price', "asc");
-                        break;
-                        case 'price_desc':
-                            $this->_collection->setOrder('price', "desc");
-                        break;
+                            case 'price_asc':
+                                $this->_collection->setOrder('price', "asc");
+                            break;
+                            case 'price_desc':
+                                $this->_collection->setOrder('price', "desc");
+                            break;
 
-                        case 'name_asc':
-                            $this->_collection->setOrder('name', "asc");
-                        break;
-                        case 'name_desc':
-                            $this->_collection->setOrder('name', "desc");
-                        break;
+                            case 'name_asc':
+                                $this->_collection->setOrder('name', "asc");
+                            break;
+                            case 'name_desc':
+                                $this->_collection->setOrder('name', "desc");
+                            break;
 
-                        default:
-                            $this->_collection->setOrder($currentOrder, $currentDirection);
-                        break;
+                            default:
+                                $this->_collection->setOrder($currentOrder, $currentDirection);
+                            break;
 
+                        }
                     }
+                    break;
+                } catch (\Exception $e) {
+                    $this->helperData->errorLog(__METHOD__, $e->getMessage());
                 }
-                break;
+            break;
         }
         //var_dump((string) $this->_collection->getSelect()); You can use this to get a list of all the available sort fields
         return $result;
