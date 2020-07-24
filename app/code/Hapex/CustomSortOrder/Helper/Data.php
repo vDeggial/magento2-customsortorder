@@ -19,6 +19,6 @@ class Data extends DataHelper
 
     public function log($message)
     {
-        $this->printLog("hapex_sortorder", $message);
+        $this->helperLog->printLog("hapex_sortorder", $message);
     }
 }
