@@ -25,9 +25,7 @@ class Toolbar
                 try {
                     $currentOrder = $toolbar->getCurrentOrder();
                     $currentDirection = $toolbar->getCurrentDirection();
-
-                    if ($currentOrder) {
-                        switch ($currentOrder) {
+                    switch ($currentOrder) {
 
                             case 'qty_asc':
                                 $this->_collection->setOrder('quantity_and_stock_status', "asc");
@@ -56,8 +54,6 @@ class Toolbar
                             break;
 
                         }
-                    }
-                    break;
                 } catch (\Exception $e) {
                     $this->helperData->errorLog(__METHOD__, $e->getMessage());
                 }
