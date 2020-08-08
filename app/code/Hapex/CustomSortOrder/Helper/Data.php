@@ -1,4 +1,5 @@
 <?php
+
 namespace Hapex\CustomSortOrder\Helper;
 
 use Hapex\Core\Helper\DataHelper;

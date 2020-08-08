@@ -1,6 +1,8 @@
 <?php
+
 namespace Hapex\CustomSortOrder\Plugin\Catalog\Model;
 
+use \Magento\Catalog\Model\Config as CatalogConfig;
 use Hapex\CustomSortOrder\Helper\Data as DataHelper;
 
 class Config
@@ -10,14 +12,7 @@ class Config
         $this->helperData = $helperData;
     }
 
-    /**
-     * Adding custom options and changing labels
-     *
-     * @param \Magento\Catalog\Model\Config $catalogConfig
-     * @param [] $options
-     * @return []
-     */
-    public function afterGetAttributeUsedForSortByArray(\Magento\Catalog\Model\Config $catalogConfig, $options)
+    public function afterGetAttributeUsedForSortByArray(CatalogConfig $catalogConfig, $options)
     {
         switch ($this->helperData->isEnabled()) {
             case true:

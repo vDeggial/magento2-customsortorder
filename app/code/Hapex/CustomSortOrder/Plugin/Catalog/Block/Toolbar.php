@@ -1,7 +1,9 @@
 <?php
+
 namespace Hapex\CustomSortOrder\Plugin\Catalog\Block;
 
 use Hapex\CustomSortOrder\Helper\Data as DataHelper;
+use Magento\Catalog\Block\Product\ProductList\Toolbar as ToolBarProductList;
 
 class Toolbar
 {
@@ -10,13 +12,7 @@ class Toolbar
         $this->helperData = $helperData;
     }
 
-    /**
-     * @param \Magento\Catalog\Block\Product\ProductList\Toolbar $toolbar
-     * @param \Closure $proceed
-     * @param \Magento\Framework\Data\Collection $collection
-     * @return \Magento\Catalog\Block\Product\ProductList\Toolbar
-     */
-    public function aroundSetCollection(\Magento\Catalog\Block\Product\ProductList\Toolbar $toolbar, \Closure $proceed, $collection)
+    public function aroundSetCollection(ToolbarProductList $toolbar, \Closure $proceed, $collection)
     {
         $this->_collection = $collection;
         $result = $proceed($collection);
@@ -52,14 +48,12 @@ class Toolbar
                         default:
                             $this->_collection->setOrder($currentOrder, $currentDirection);
                             break;
-
                     }
                 } catch (\Exception $e) {
                     $this->helperData->errorLog(__METHOD__, $e->getMessage());
                 }
                 break;
         }
-        //var_dump((string) $this->_collection->getSelect()); You can use this to get a list of all the available sort fields
         return $result;
     }
 }
