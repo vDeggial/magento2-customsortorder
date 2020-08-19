@@ -1,6 +1,6 @@
 <?php
 
-namespace Hapex\CustomSortOrder\Plugin\Catalog\Block;
+namespace Hapex\CustomSortOrder\Block\Product\ProductList;
 
 use Hapex\CustomSortOrder\Helper\Data as DataHelper;
 use Magento\Catalog\Block\Product\ProductList\Toolbar as ToolBarProductList;

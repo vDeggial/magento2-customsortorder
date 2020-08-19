@@ -1,8 +1,8 @@
 <?php
 
-namespace Hapex\CustomSortOrder\Plugin\Catalog\Model;
+namespace Hapex\CustomSortOrder\Model;
 
-use \Magento\Catalog\Model\Config as CatalogConfig;
+use Magento\Catalog\Model\Config as CatalogConfig;
 use Hapex\CustomSortOrder\Helper\Data as DataHelper;
 
 class Config
