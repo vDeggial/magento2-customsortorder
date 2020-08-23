@@ -8,6 +8,8 @@ use Magento\Framework\ObjectManagerInterface;
 
 class Data extends DataHelper
 {
+    protected const XML_PATH_CONFIG_ENABLED = "hapex_customsortorder/general/enable";
+    protected const FILE_PATH_LOG = "hapex_sortorder";
     public function __construct(Context $context, ObjectManagerInterface $objectManager)
     {
         parent::__construct($context, $objectManager);
@@ -15,11 +17,11 @@ class Data extends DataHelper
 
     public function isEnabled()
     {
-        return $this->getConfigFlag('hapex_customsortorder/general/enable');
+        return $this->getConfigFlag(self::XML_PATH_CONFIG_ENABLED);
     }
 
     public function log($message)
     {
-        $this->helperLog->printLog("hapex_sortorder", $message);
+        $this->helperLog->printLog(self::FILE_PATH_LOG, $message);
     }
 }
