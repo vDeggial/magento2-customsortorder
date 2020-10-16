@@ -28,10 +28,10 @@ class Config
 
                     //New sorting options
                     $customOptions = [];
-                    $customOptions['price_desc'] = __('Price: High to Low');
                     $customOptions['price_asc'] = __('Price: Low to High');
-                    $customOptions['qty_desc'] = __('Quantity: High to Low');
+                    $customOptions['price_desc'] = __('Price: High to Low');
                     $customOptions['qty_asc'] = __('Quantity: Low to High');
+                    $customOptions['qty_desc'] = __('Quantity: High to Low');
                     $customOptions['name_asc'] = __('Product Name: A to Z');
                     $customOptions['name_desc'] = __('Product Name: Z to A');
 
