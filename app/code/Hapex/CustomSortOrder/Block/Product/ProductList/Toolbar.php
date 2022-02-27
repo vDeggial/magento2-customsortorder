@@ -21,9 +21,25 @@ class Toolbar
                 try {
                     $currentOrder = $toolbar->getCurrentOrder();
                     $currentDirection = $toolbar->getCurrentDirection();
-                    $this->setOrder($currentOrder, $currentDirection);
+
+                    switch ($currentOrder) {
+                        case "qty_asc":
+                            $this->_collection->clear();
+                            $this->_collection->addAttributeToSelect('*')->addAttributeToSort('quantity_and_stock_status', 'ASC')->load();
+                            //var_dump($collection);
+                            break;
+
+                        case "qty_desc":
+                            $this->_collection->clear();
+                            $this->_collection->addAttributeToSelect('*')->addAttributeToSort('quantity_and_stock_status', 'DESC')->load();
+                            break;
+
+                        default:
+                            $this->setOrder($currentOrder, $currentDirection);
+                            break;
+                    }
                 } catch (\Exception $e) {
-                    $this->helperData->errorLog(__METHOD__, $e->getMessage());
+                    $this->helperData->getLogHelper()->errorLog(__METHOD__, $e->getMessage());
                 }
                 break;
         }
