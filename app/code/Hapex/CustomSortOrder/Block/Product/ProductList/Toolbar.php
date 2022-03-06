@@ -22,22 +22,7 @@ class Toolbar
                     $currentOrder = $toolbar->getCurrentOrder();
                     $currentDirection = $toolbar->getCurrentDirection();
 
-                    switch ($currentOrder) {
-                        case "qty_asc":
-                            $this->_collection->clear();
-                            $this->_collection->addAttributeToSelect('*')->addAttributeToSort('quantity_and_stock_status', 'ASC')->load();
-                            //var_dump($collection);
-                            break;
-
-                        case "qty_desc":
-                            $this->_collection->clear();
-                            $this->_collection->addAttributeToSelect('*')->addAttributeToSort('quantity_and_stock_status', 'DESC')->load();
-                            break;
-
-                        default:
-                            $this->setOrder($currentOrder, $currentDirection);
-                            break;
-                    }
+                    $this->setOrder($currentOrder, $currentDirection);
                 } catch (\Exception $e) {
                     $this->helperData->getLogHelper()->errorLog(__METHOD__, $e->getMessage());
                 }
@@ -48,33 +33,41 @@ class Toolbar
 
     private function setOrder($currentOrder = null, $currentDirection = null)
     {
-        switch ($currentOrder) {
+        try {
+            switch ($currentOrder) {
 
-            case 'qty_asc':
-                $this->setCurrentOrder('quantity_and_stock_status', "asc");
-                break;
+                case 'qty_asc':
+                    //$this->setCurrentOrder('quantity_and_stock_status', "asc");
+                    $this->_collection->clear();
+                    $this->_collection->addAttributeToSelect('*')->addAttributeToSort('quantity_and_stock_status', 'ASC')->load();
+                    break;
 
-            case 'qty_desc':
-                $this->setCurrentOrder('quantity_and_stock_status', "desc");
-                break;
+                case 'qty_desc':
+                    //$this->setCurrentOrder('quantity_and_stock_status', "desc");
+                    $this->_collection->clear();
+                    $this->_collection->addAttributeToSelect('*')->addAttributeToSort('quantity_and_stock_status', 'DESC')->load();
+                    break;
 
-            case 'price_asc':
-                $this->setCurrentOrder('price', "asc");
-                break;
-            case 'price_desc':
-                $this->setCurrentOrder('price', "desc");
-                break;
+                case 'price_asc':
+                    $this->setCurrentOrder('price', "asc");
+                    break;
+                case 'price_desc':
+                    $this->setCurrentOrder('price', "desc");
+                    break;
 
-            case 'name_asc':
-                $this->setCurrentOrder('name', "asc");
-                break;
-            case 'name_desc':
-                $this->setCurrentOrder('name', "desc");
-                break;
+                case 'name_asc':
+                    $this->setCurrentOrder('name', "asc");
+                    break;
+                case 'name_desc':
+                    $this->setCurrentOrder('name', "desc");
+                    break;
 
-            default:
-                $this->setCurrentOrder($currentOrder, $currentDirection);
-                break;
+                default:
+                    $this->setCurrentOrder($currentOrder, $currentDirection);
+                    break;
+            }
+        } catch (\Exception $e) {
+            $this->helperData->getLogHelper()->errorLog(__METHOD__, $e->getMessage());
         }
     }
 
