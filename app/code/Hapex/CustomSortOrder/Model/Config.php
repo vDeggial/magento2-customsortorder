@@ -36,7 +36,7 @@ class Config
                     $customOptions['name_desc'] = __('Product Name: Z to A');
 
                     $options = array_merge($options, $customOptions);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     $this->helperData->errorLog(__METHOD__, $e->getMessage());
                 }
                 break;

@@ -23,7 +23,7 @@ class Toolbar
                     $currentDirection = $toolbar->getCurrentDirection();
 
                     $this->setOrder($currentOrder, $currentDirection);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     $this->helperData->getLogHelper()->errorLog(__METHOD__, $e->getMessage());
                 }
                 break;
@@ -66,7 +66,7 @@ class Toolbar
                     $this->setCurrentOrder($currentOrder, $currentDirection);
                     break;
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->helperData->getLogHelper()->errorLog(__METHOD__, $e->getMessage());
         }
     }
