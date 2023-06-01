@@ -37,7 +37,7 @@ class Config
 
                     $options = array_merge($options, $customOptions);
                 } catch (\Throwable $e) {
-                    $this->helperData->errorLog(__METHOD__, $e->getMessage());
+                    $this->helperData->errorLog(__METHOD__, $this->helperData->getExceptionTrace($e));
                 }
                 break;
         }
